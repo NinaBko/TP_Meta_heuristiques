@@ -24,6 +24,7 @@ public class Main {
         solvers = new HashMap<>();
         solvers.put("basic", new BasicSolver());
         solvers.put("random", new RandomSolver());
+        solvers.put("greedySPT", new GreedySolverSPT());
         // add new solvers here
     }
 

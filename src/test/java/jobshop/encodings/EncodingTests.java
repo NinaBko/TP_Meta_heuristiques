@@ -27,6 +27,7 @@ public class EncodingTests {
         enc.jobs[enc.nextToSet++] = 1;
 
         Schedule sched = enc.toSchedule();
+        ResourceOrder res = new ResourceOrder(sched);
         // TODO: make it print something meaningful
         // by implementing the toString() method
         System.out.println(sched);
@@ -47,8 +48,8 @@ public class EncodingTests {
         sched = enc.toSchedule();
         assert sched.isValid();
         assert sched.makespan() == 14;
-        ResourceOrder resOrder = new ResourceOrder(sched);
-        System.out.println(resOrder);
+        ResourceOrder res2 = new ResourceOrder(sched);
+        System.out.println(sched);
     }
 
     @Test

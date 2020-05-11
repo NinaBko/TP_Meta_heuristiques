@@ -28,7 +28,7 @@ public class Schedule {
         for (int nj = 0; nj < nbJobs; nj++) {
             string.append("Job " + "n.").append(nj).append("\n");
             for (int nt = 0; nt < nbTasks; nt++) {
-                string.append("Task n.").append(nt + 1).append(" starts at ").append(startTime(nj, nt)).append("\n");
+                string.append("Task n.").append(nt).append(" starts at ").append(startTime(nj, nt)).append("\n");
             }
             string.append("\n");
         }

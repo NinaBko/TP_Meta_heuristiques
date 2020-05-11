@@ -1,22 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-04-27T12:25:38" hostname="srv-ens-calcul" time="0.073">
+<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-05-07T15:00:59" hostname="DESKTOP-446RTPS" time="0.044">
   <properties/>
-  <testcase name="testBasicSolver" classname="jobshop.encodings.EncodingTests" time="0.05"/>
-  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.022"/>
+  <testcase name="testBasicSolver" classname="jobshop.encodings.EncodingTests" time="0.021"/>
+  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.021"/>
   <system-out><![CDATA[Job n.0
-Task n.1 starts at 0
-Task n.2 starts at 3
-Task n.3 starts at 6
+Task n.0 starts at 0
+Task n.1 starts at 3
+Task n.2 starts at 6
 
 Job n.1
-Task n.1 starts at 0
-Task n.2 starts at 3
-Task n.3 starts at 8
+Task n.0 starts at 0
+Task n.1 starts at 3
+Task n.2 starts at 8
 
 
-Machine 0 : (0, 0} ; (1, 1} ; 
-Machine 1 : (0, 1} ; (1, 0} ; 
-Machine 2 : (0, 2} ; (1, 2} ; 
+Job n.0
+Task n.0 starts at 0
+Task n.1 starts at 3
+Task n.2 starts at 6
+
+Job n.1
+Task n.0 starts at 6
+Task n.1 starts at 8
+Task n.2 starts at 10
+
 
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
