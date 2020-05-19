@@ -2,19 +2,23 @@ package jobshop.solvers;
 
 import jobshop.Instance;
 import jobshop.Result;
-import jobshop.Solver;
 import jobshop.encodings.ResourceOrder;
 import jobshop.encodings.Task;
+import jobshop.Solver;
 import java.util.ArrayList;
 
-public class GreedySolverSPT implements Solver {
-
+public class GreedySolverLRPT implements Solver{
     public Task SPT(ArrayList<Task> taskList, Instance i) {
-        int durTask = Integer.MAX_VALUE;
+        int maxTime = Integer.MIN_VALUE;
         Task result = null;
+
         for (Task task : taskList) {
-            if (i.duration(task.job, task.task) < durTask) {
-                durTask = i.duration(task.job, task.task);
+            int processingTime = 0;
+            for(int j = task.task; j < i.numTasks; j++) {
+                processingTime += i.duration(task.job, j);
+            }
+            if (processingTime > maxTime) {
+                maxTime = processingTime;
                 result = task;
             }
         }
