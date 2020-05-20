@@ -26,6 +26,7 @@ public class Main {
         solvers.put("random", new RandomSolver());
         solvers.put("greedySPT", new GreedySolverSPT());
         solvers.put("greedyLRPT", new GreedySolverLRPT());
+        solvers.put("greedyEST_SPT", new GreedySolverESTSPT());
         // add new solvers here
     }
 

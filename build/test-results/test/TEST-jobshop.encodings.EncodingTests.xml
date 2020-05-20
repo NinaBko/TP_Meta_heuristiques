@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-05-19T20:42:24" hostname="nina-HP-Stream-Laptop-11-y0XX" time="0.46">
+<testsuite name="jobshop.encodings.EncodingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-05-19T21:39:13" hostname="nina-HP-Stream-Laptop-11-y0XX" time="0.121">
   <properties/>
-  <testcase name="testBasicSolver" classname="jobshop.encodings.EncodingTests" time="0.238"/>
-  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.218"/>
+  <testcase name="testBasicSolver" classname="jobshop.encodings.EncodingTests" time="0.067"/>
+  <testcase name="testJobNumbers" classname="jobshop.encodings.EncodingTests" time="0.05"/>
   <system-out><![CDATA[Job n.0
 Task n.0 starts at 0
 Task n.1 starts at 3
