@@ -10,40 +10,6 @@ import java.util.ArrayList;
 
 public class GreedySolverESTSPT implements Solver {
 
-    public Task SPT(ArrayList<Task> taskList, Instance i) {
-        int durTask = Integer.MAX_VALUE;
-        Task result = null;
-        for (Task task : taskList) {
-            if (i.duration(task.job, task.task) < durTask) {
-                durTask = i.duration(task.job, task.task);
-                result = task;
-            }
-        }
-        return result;
-    }
-
-    public Task EST_SPT (ArrayList<Task> taskList, Instance i, int[] nextJobs, int[] nextMachines) {
-        int minStart = Integer.MAX_VALUE;
-        ArrayList<Task> choiceTasks = new ArrayList<>();
-        int start = -1;
-        int machine;
-
-        for (Task task : taskList) {
-            if (i.duration(task.job, task.task) < minStart) {
-                machine = i.machine(task);
-                start = Integer.max(nextJobs[task.job], nextMachines[machine]);
-            }
-            if(start < minStart) {
-                minStart = start;
-                choiceTasks.clear();
-                choiceTasks.add(task);
-            } else if (start == minStart) {
-                choiceTasks.add(task);
-            }
-        }
-        return SPT(choiceTasks, i);
-    }
-
     @Override
     public Result solve(Instance instance, long deadline) {
 
@@ -61,21 +27,49 @@ public class GreedySolverESTSPT implements Solver {
             nextRealisableSlot.add(new Task(i, 0));
         }
 
-        while (!nextRealisableSlot.isEmpty() && deadline > System.currentTimeMillis()) {
+        while (!nextRealisableSlot.isEmpty()) {
+            // We choose the task to process
             Task currentTask = null;
-            currentTask = EST_SPT(nextRealisableSlot, instance, nextJobs, nextMachines);
+            ArrayList<Task> choiceTasks = new ArrayList<>();
+            int minStart = Integer.MAX_VALUE;
+            int start = Integer.MAX_VALUE;
+            int durTask = Integer.MAX_VALUE;
 
+
+            for (Task task : nextRealisableSlot) {
+                start = Integer.max(nextJobs[task.job], nextMachines[instance.machine(task)]);
+                if(start < minStart) {
+                    minStart = start;
+                    choiceTasks.clear();
+                    choiceTasks.add(task);
+                }
+                else if (start == minStart) {
+                    choiceTasks.add(task);
+                }
+            }
+
+            for (Task task : choiceTasks) {
+                if (instance.duration(task.job, task.task) < durTask) {
+                    durTask = instance.duration(task.job, task.task);
+                    currentTask = task;
+                }
+            }
+
+            // Remove the task in order to process it
             nextRealisableSlot.remove(currentTask);
+            // Update machine and jobs dates
+            int date = Integer.max(nextMachines[instance.machine(currentTask)], nextJobs[currentTask.job]);
+            int updateTime = instance.duration(currentTask) + date;
+            nextJobs[currentTask.job] = updateTime;
+            nextMachines[instance.machine(currentTask)] = updateTime;
 
             if (currentTask.task < instance.numTasks - 1) {
                 nextRealisableSlot.add(new Task(currentTask.job, currentTask.task+1));
             }
 
             int mach = instance.machine(currentTask.job, currentTask.task);
-            Task chosenTask = new Task(currentTask.job, currentTask.task);
-            int nextFreeSlot = resOrder.nextFreeSlot[mach] ++;
-            resOrder.tasksByMachine[mach][nextFreeSlot] = chosenTask;
+            resOrder.tasksByMachine[mach][resOrder.nextFreeSlot[mach] ++] = new Task(currentTask.job, currentTask.task);;
         }
-        return new Result(instance, resOrder.toSchedule(), Result.ExitCause.Blocked);
+        return new Result(instance, resOrder.toSchedule(), Result.ExitCause.Timeout);
     }
 }
