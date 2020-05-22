@@ -63,6 +63,7 @@ public class GreedySolverESTLRPT implements Solver {
 
             // Remove the task in order to process it
             nextRealisableSlot.remove(currentTask);
+
             // Update machine and jobs dates
             int date = Integer.max(nextMachines[instance.machine(currentTask)], nextJobs[currentTask.job]);
             int updateTime = instance.duration(currentTask) + date;

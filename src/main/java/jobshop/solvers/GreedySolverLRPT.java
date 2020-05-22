@@ -22,7 +22,7 @@ public class GreedySolverLRPT implements Solver{
             nextRealisableSlot.add(new Task(i, 0));
         }
 
-        while (!nextRealisableSlot.isEmpty() && deadline > System.currentTimeMillis()) {
+        while (!nextRealisableSlot.isEmpty()) {
             Task currentTask = null;
             int maxTime = Integer.MIN_VALUE;
             Task result = null;

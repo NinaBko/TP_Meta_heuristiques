@@ -23,7 +23,7 @@ public class GreedySolverSPT implements Solver {
             nextRealisableSlot.add(new Task(i, 0));
         }
 
-        while (!nextRealisableSlot.isEmpty() && deadline > System.currentTimeMillis()) {
+        while (!nextRealisableSlot.isEmpty()) {
             Task currentTask = null;
             int durTask = Integer.MAX_VALUE;
             Task result = null;
