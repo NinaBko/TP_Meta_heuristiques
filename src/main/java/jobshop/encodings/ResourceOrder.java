@@ -127,5 +127,4 @@ public class ResourceOrder extends Encoding {
 
         return s.toString();
     }
-
 }

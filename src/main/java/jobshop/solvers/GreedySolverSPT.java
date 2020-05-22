@@ -9,18 +9,6 @@ import java.util.ArrayList;
 
 public class GreedySolverSPT implements Solver {
 
-    public Task SPT(ArrayList<Task> taskList, Instance i) {
-        int durTask = Integer.MAX_VALUE;
-        Task result = null;
-        for (Task task : taskList) {
-            if (i.duration(task.job, task.task) < durTask) {
-                durTask = i.duration(task.job, task.task);
-                result = task;
-            }
-        }
-        return result;
-    }
-
     @Override
     public Result solve(Instance instance, long deadline) {
 
@@ -37,7 +25,15 @@ public class GreedySolverSPT implements Solver {
 
         while (!nextRealisableSlot.isEmpty() && deadline > System.currentTimeMillis()) {
             Task currentTask = null;
-            currentTask = SPT(nextRealisableSlot, instance);
+            int durTask = Integer.MAX_VALUE;
+            Task result = null;
+            for (Task task : nextRealisableSlot) {
+                if (instance.duration(task.job, task.task) < durTask) {
+                    durTask = instance.duration(task.job, task.task);
+                    result = task;
+                }
+            }
+            currentTask = result;
 
             nextRealisableSlot.remove(currentTask);
 

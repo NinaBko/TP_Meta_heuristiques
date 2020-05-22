@@ -8,24 +8,7 @@ import jobshop.Solver;
 import java.util.ArrayList;
 
 public class GreedySolverLRPT implements Solver{
-    public Task SPT(ArrayList<Task> taskList, Instance i) {
-        int maxTime = Integer.MIN_VALUE;
-        Task result = null;
-
-        for (Task task : taskList) {
-            int processingTime = 0;
-            for(int j = task.task; j < i.numTasks; j++) {
-                processingTime += i.duration(task.job, j);
-            }
-            if (processingTime > maxTime) {
-                maxTime = processingTime;
-                result = task;
-            }
-        }
-        return result;
-    }
-
-    @Override
+      @Override
     public Result solve(Instance instance, long deadline) {
 
         // Initialise an object ResourceOrder from the instance to solve
@@ -41,7 +24,20 @@ public class GreedySolverLRPT implements Solver{
 
         while (!nextRealisableSlot.isEmpty() && deadline > System.currentTimeMillis()) {
             Task currentTask = null;
-            currentTask = SPT(nextRealisableSlot, instance);
+            int maxTime = Integer.MIN_VALUE;
+            Task result = null;
+
+            for (Task task : nextRealisableSlot) {
+                int processingTime = 0;
+                for(int j = task.task; j < instance.numTasks; j++) {
+                    processingTime += instance.duration(task.job, j);
+                }
+                if (processingTime > maxTime) {
+                    maxTime = processingTime;
+                    result = task;
+                }
+            }
+            currentTask = result;
 
             nextRealisableSlot.remove(currentTask);
 
